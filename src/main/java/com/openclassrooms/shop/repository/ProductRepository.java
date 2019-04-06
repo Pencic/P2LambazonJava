@@ -42,7 +42,7 @@ public class ProductRepository {
      */
     public List<Product> findAll()
     {
-        return products.stream().filter(p -> p.getStock() > 0).sorted(Comparator.comparing(Product::getName)).toArray(Product[]::new);
+        return products.stream().filter(p -> p.getStock() > 0).sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList());
     }
 
     /**
