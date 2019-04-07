@@ -6,13 +6,13 @@ import java.util.Optional;
 
 public class Cart {
 	
-     public List <CartLine> cartLines = new ArrayList<>(); 
+     public List<CartLine> cartLines = new ArrayList<>(); 
     /**
      *
      * @return the actual cartline list
      */
     public List<CartLine> getCartLineList() {
-        return new ArrayList<>();
+        return cartLines;
     }
 
     /**
@@ -22,6 +22,16 @@ public class Cart {
      */
     public void addItem(Product product, int quantity) {
         // TODO implement the method
+    	for (int i = 0; i < cartLines.size(); i++) {
+    		CartLine cartLine = cartLines.get(i);
+    		if(cartLine.getProduct().equals(product)) {
+    			cartLine.setQuantity(cartLine.getQuantity() + quantity);
+    			return;
+    		}
+    	}
+    	CartLine newCartLine = new CartLine(product , quantity);
+    	cartLines.add(newCartLine);
+       //Implemeted method for addItem
     }
 
     /**
@@ -39,8 +49,15 @@ public class Cart {
     public double getTotalValue()
     {
          //TODO implement the method
-        return 0.0;
-
+    	double totalValue = 0;
+    	
+    	for (int i = 0; i < cartLines.size(); i++) {
+    		CartLine cartLine = cartLines.get(i);
+    		Product cartLineProduct = cartLine.getProduct();
+    		totalValue += cartLineProduct.getPrice() * cartLine.getQuantity();
+    	}
+        return totalValue;
+        //Implemented method for getTotalValue
     }
 
     /**
@@ -49,7 +66,14 @@ public class Cart {
     public double getAverageValue()
     {
         // TODO implement the method
-        return 0.0;
+    	double quantity = 0;
+    	
+    	for (int i = 0; i < cartLines.size(); i++) {
+    	CartLine cartLine = cartLines.get(i);
+    	quantity += cartLine.getQuantity();
+    	}
+        return getTotalValue() / quantity;
+       //Implemented method for getAverageValue
     }
 
     /**
@@ -59,7 +83,14 @@ public class Cart {
     public Product findProductInCartLines(Long productId)
     {
         // TODO implement the method
+    	for (int i = 0; i < cartLines.size(); i++) {
+    		Product products = cartLines.get(i).getProduct();
+    		if(products.getId().equals(productId)){
+    			return products;
+    		}
+    	}
         return null;
+       //Implemented method for findProductInCartLines
     }
 
     /**
