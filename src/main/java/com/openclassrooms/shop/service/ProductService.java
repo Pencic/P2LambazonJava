@@ -44,8 +44,14 @@ public class ProductService {
 	public Product getProductById(Long productId)
 	{
 		// TODO implement the method
+		for(int i = 0; i < getAllProducts().size() ; i++) {
+			Product product = getAllProducts().get(i);
+			if(product.getId().equals(productId)) {
+			return product;
+			}
+		}
 		return null;
-
+      //Implemented method for getProductById
 	}
 
 	/**
@@ -54,7 +60,12 @@ public class ProductService {
 	 */
 	public void updateProductQuantities(Long productId, int quantity)
 	{
-
 		// TODO implement the method
+		Product product = getProductById(productId);
+		if(product == null) {
+			return;
+		}
+		product.setStock(product.getStock() - quantity);
+	 // Implemented method for updateProductQuantities
 	}
 }
